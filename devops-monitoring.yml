@@ -77,7 +77,7 @@ spec:
         image: timpamungkas/devops-yellow:1.0.0
         resources:
           limits:
-            cpu: "0.5"
+            cpu: "0.6"
             memory: 1Gi
         ports:
         - name:  http
