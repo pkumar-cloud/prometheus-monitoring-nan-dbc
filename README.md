@@ -1,18 +1,22 @@
 ### Deploy MS in EKS
     eksctl create cluster
     kubectl create namespace online-shop
-    kubectly apply -f ~/Demo-projects/Bootcamp/monitoring/config-microservices.yaml -n online-shop
+    kubectl apply -f ./config-microservices.yaml -n online-shop
 
 # OPTIONAL for Linode
     chmod 400 ~/Downloads/online-shop-kubeconfig.yaml
     export KUBECONFIG=~/Downloads/online-shop-kubeconfig.yaml
 
+### On minikube
+    minikube start --cpus 4 --memory 8192 --vm-driver hyperkit
 
 ### Deploy Prometheus Operator Stack
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo update
     kubectl create namespace monitoring
     helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
+    # Install chart with fixed version
+    # helm install prometheus prometheus-community/kube-prometheus-stack --version "9.4.1" 
     helm ls
 
 [Link to the chart: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack]
