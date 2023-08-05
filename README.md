@@ -1,7 +1,9 @@
 ### Deploy MS in EKS
     eksctl create cluster
-    kubectl create namespace online-shop
-    kubectl apply -f ./config-microservices.yaml -n online-shop
+    // kubectl create namespace online-shop
+    // kubectl apply -f ./config-microservices.yaml -n online-shop
+
+    kubectl apply -f devops-monitoring.yml
 
 # OPTIONAL for Linode
     chmod 400 ~/Downloads/online-shop-kubeconfig.yaml
@@ -9,6 +11,8 @@
 
 ### On minikube
     minikube start --cpus 4 --memory 8192 --vm-driver hyperkit
+    minikube addons enable metrics-server
+    minikube addons enable ingress
 
 ### Deploy Prometheus Operator Stack
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
