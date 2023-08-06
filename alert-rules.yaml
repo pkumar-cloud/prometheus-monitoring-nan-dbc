@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
+kind: PrometheusRule #CRD, Prometheus Operator takes this resource and tells Prometheus to reload the alert rules.
 metadata:
   name: main-rules
   namespace: monitoring
@@ -8,18 +8,18 @@ metadata:
     release: monitoring
 spec:
   groups:
-  - name: main.rules
-    rules:
-    - alert: HostHighCpuLoad
-      expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 50
-      for: 2m
+  - name: main.rules #name of group, can group our rules
+    rules: #array, allows us to create multiple alerts in same object.
+    - alert: HostHighCpuLoad #If Actual cpu utilization > 50%, send alert.
+      expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 50 # If Actual cpu utilization > 50%, send alert.
+      for: 2m #wait for 2 mins, if node utlization does not come down <50% in 2m then send alert.
       labels:
         severity: warning
         namespace: monitoring
       annotations:
         description: "CPU load on host is over 50%\n Value = {{ $value }}\n Instance = {{ $labels.instance }}\n"
         summary: "Host CPU load high"
-    - alert: KubernetesPodCrashLooping
+    - alert: KubernetesPodCrashLooping 
       expr: kube_pod_container_status_restarts_total > 5
       for: 0m
       labels:

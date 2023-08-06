@@ -10,7 +10,8 @@
     export KUBECONFIG=~/Downloads/online-shop-kubeconfig.yaml
 
 ### On minikube
-    minikube start --cpus 4 --memory 8192 --vm-driver hyperkit
+    // minikube start --cpus 4 --memory 8192 --vm-driver hyperkit
+    minikube start --cpus 4 --memory 6144 --extra-config=kubelet.housekeeping-interval=10s
     minikube addons enable metrics-server
     minikube addons enable ingress
 
@@ -36,6 +37,10 @@
     kubectl port-forward svc/monitoring-grafana 8080:80 -n monitoring &
     user: admin
     pwd: prom-operator
+
+    ps aux | grep kubectl OR ps -ef|grep port-forward #List all the port forwards
+    kill -9 2013886
+
 
 ### Trigger CPU spike with many requests
 
