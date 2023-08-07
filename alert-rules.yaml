@@ -3,7 +3,7 @@ kind: PrometheusRule #CRD, Prometheus Operator takes this resource and tells Pro
 metadata:
   name: main-rules
   namespace: monitoring
-  labels:
+  labels: #Helps Prometheus Operator to pick up this rule autometically. Prometheus will match based upon below labels and add the PrometheusRule to its config.
     app: kube-prometheus-stack 
     release: monitoring
 spec:
@@ -26,5 +26,5 @@ spec:
         severity: critical
         namespace: monitoring
       annotations: 
-        description: "Pod {{ $labels.pod }} is crash looping\n Value = {{ $value }}"
+        description: "Pod {{ $labels.pod }} is crash looping\n Value = {{ $value }}" #Label & value from PromQL.
         summary: "Kubernetes pod crash looping"

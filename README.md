@@ -55,7 +55,15 @@
 
 ### Access Alert manager UI
     kubectl port-forward -n monitoring svc/monitoring-kube-prometheus-alertmanager 9093:9093 &
-#### Create
+
+#### Create custom rules:
+    Refer alert-rules.yaml. (CRD -> PrometheusRule)
+    kubectl apply -f alert-rules.yaml
+    kubectl get PrometheusRule -n monitoring
+    #Check if rules are picked up by Prometheus 
+    kubectl logs prometheus-monitoring-kube-prometheus-prometheus-0 -n monitoring
+    Verify in UI now.
+
 
 #### Create cpu stress
     kubectl delete pod cpu-test; kubectl run cpu-test --image=containerstack/cpustress -- --cpu 4 --timeout 60s --metrics-brief
