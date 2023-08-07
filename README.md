@@ -53,9 +53,9 @@
       curl ae4aee0715edc46b988c6ce67121bf57-1459479566.eu-west-3.elb.amazonaws.com > test.txt
     done
 
-
 ### Access Alert manager UI
     kubectl port-forward -n monitoring svc/monitoring-kube-prometheus-alertmanager 9093:9093 &
+#### Create
 
 #### Create cpu stress
     kubectl delete pod cpu-test; kubectl run cpu-test --image=containerstack/cpustress -- --cpu 4 --timeout 60s --metrics-brief
