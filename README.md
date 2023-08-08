@@ -64,8 +64,7 @@
     kubectl logs prometheus-monitoring-kube-prometheus-prometheus-0 -n monitoring
     Verify in UI now.
 
-
-#### Create cpu stress
+#### Create cpu stress using cpustress from Dockerhub
     kubectl delete pod cpu-test; kubectl run cpu-test --image=containerstack/cpustress -- --cpu 4 --timeout 60s --metrics-brief
 
 
