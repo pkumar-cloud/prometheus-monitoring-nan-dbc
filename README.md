@@ -53,29 +53,35 @@
       curl ae4aee0715edc46b988c6ce67121bf57-1459479566.eu-west-3.elb.amazonaws.com > test.txt
     done
 
+OR
+#### Create cpu stress using cpustress from Dockerhub
+    kubectl delete pod cpu-test; kubectl run cpu-test --image=containerstack/cpustress -- --cpu 4 --timeout 60s --metrics-brief # "--" is used to pass the parameters to cpustress app.
+
 ### Access Alert manager UI
     kubectl port-forward -n monitoring svc/monitoring-kube-prometheus-alertmanager 9093:9093 &
     AM config: kubectl get secrets alertmanager-monitoring-kube-prometheus-alertmanager-generated -n monitoring -o yaml | less
     echo <Secret> | base64 -D | less
 
 #### Create custom rules:
-    CRD -> PrometheusRule:
-    Refer alert-rules.yaml.
-    Refer: https://docs.openshift.com/container-platform/4.7/rest_api/monitoring_apis/prometheusrule-monitoring-coreos-com-v1.html
+    Steps to setup alerting and notifications:
+    1. Create alerting rules in Prometheus using PrometheusRule CRD
+    2. Define routes, matchers and receivers using AlertmanagerConfig CRD 
+    3. Check security policies of client, e.g. Gmail: use https://myaccount.google.com/lesssecureapps OR app-password (https://myaccount.google.com/apppasswords) if 2FA enabled. 
+
+    CRD -> PrometheusRule: Refer alert-rules.yaml.
+    Syntax: https://docs.openshift.com/container-platform/4.13/rest_api/monitoring_apis/prometheusrule-monitoring-coreos-com-v1.html
     kubectl apply -f alert-rules.yaml
     kubectl get PrometheusRule -n monitoring
     #Check if rules are picked up by Prometheus 
     kubectl logs prometheus-monitoring-kube-prometheus-prometheus-0 -n monitoring
     Verify in prometheus UI now.
 
-    CRD -> AlertmanagerConfig:
-    Refer alert-manager-configuration.yaml.
-    kubectl apply -f email.secret.yaml
+    CRD -> AlertmanagerConfig: Refer alert-manager-configuration.yaml.
+    kubectl apply -f email-secret.yaml
     kubectl apply -f alert-manager-configuration.yaml
+    #Check logs of Alertmanager POD and see if new config picked up by Prometheus.
 
-
-#### Create cpu stress using cpustress from Dockerhub
-    kubectl delete pod cpu-test; kubectl run cpu-test --image=containerstack/cpustress -- --cpu 4 --timeout 60s --metrics-brief # "--" is used to pass the parameters to cpustress app.
+    localhost:9093/api/v2/alerts  # List all the alerts received in AM.
 
 
 ### Deploy Redis Exporter

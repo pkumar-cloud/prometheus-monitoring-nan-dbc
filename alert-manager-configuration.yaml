@@ -18,11 +18,11 @@ spec:
   receivers:
   - name: 'email'
     emailConfigs:
-    - to: 'email@example.come'
-      from: 'email@example.come'
+    - to: 'pnd.rns1@gmail.com'
+      from: 'pnd.rns1@gmail.com'
       smarthost: 'smtp.gmail.com:587'
-      authUsername: 'email@example.come'
-      authIdentity: 'email@example.come'
+      authUsername: 'pnd.rns1@gmail.com'
+      authIdentity: 'pnd.rns1@gmail.com'
       authPassword:
-       name: gmail-auth #use https://myaccount.google.com/lesssecureapps OR app-password if 2FA enabled. 
+       name: gmail-auth #secret name
        key: password
