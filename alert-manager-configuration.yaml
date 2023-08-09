@@ -5,8 +5,8 @@ metadata:
   namespace: monitoring
 spec:
   route:
-    receiver: 'email'
-    repeatInterval: 30m
+    receiver: 'email' #send email for both custom alerts.
+    repeatInterval: 30m #resend email if issue persists after 30 mins and keep repeating until fixed.
     routes:
     - matchers:
       - name: alertname
@@ -14,7 +14,7 @@ spec:
     - matchers:
       - name: alertname
         value: KubernetesPodCrashLooping
-      repeatInterval: 10m
+      repeatInterval: 10m #Override above value with 10m
   receivers:
   - name: 'email'
     emailConfigs:
@@ -24,5 +24,5 @@ spec:
       authUsername: 'email@example.come'
       authIdentity: 'email@example.come'
       authPassword:
-       name: gmail-auth
+       name: gmail-auth #use https://myaccount.google.com/lesssecureapps OR app-password if 2FA enabled. 
        key: password
