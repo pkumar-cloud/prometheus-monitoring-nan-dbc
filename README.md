@@ -85,11 +85,21 @@ OR
 
 
 ### Deploy Redis Exporter
+    Ref's:
+    https://github.com/prometheus-community/helm-charts/tree/main/charts
+    - https://github.com/oliver006/redis_exporter
+
+    Deploy redis exporter:
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo add stable https://charts.helm.sh/stable
     helm repo update
 
+    Create redis-values.yaml to overide default values from helm chart.
+    - Enable serviceMonitor.
+    - redisAddress
     helm install redis-exporter prometheus-community/prometheus-redis-exporter -f redis-values.yaml
+    helm ls
+    kubectl get servicemonitor
 
     https://samber.github.io/awesome-prometheus-alerts/
     

@@ -1,6 +1,6 @@
 serviceMonitor:
   enabled: true
   labels:
-    release: monitoring
+    release: monitoring #name of Promethus release deployed via helm
 
-redisAddress: redis://redis-cart:6379
+redisAddress: redis://redis-cart:6379 #redis servcie name or endpoint
