@@ -5,7 +5,7 @@
 
     kubectl apply -f devops-monitoring.yml
 
-# OPTIONAL for Linode
+### OPTIONAL for Linode
     chmod 400 ~/Downloads/online-shop-kubeconfig.yaml
     export KUBECONFIG=~/Downloads/online-shop-kubeconfig.yaml
 
@@ -89,7 +89,6 @@ OR
     https://github.com/prometheus-community/helm-charts/tree/main/charts
     - https://github.com/oliver006/redis_exporter
 
-    Deploy redis exporter:
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo add stable https://charts.helm.sh/stable
     helm repo update
@@ -97,9 +96,22 @@ OR
     Create redis-values.yaml to overide default values from helm chart.
     - Enable serviceMonitor.
     - redisAddress
+    
     helm install redis-exporter prometheus-community/prometheus-redis-exporter -f redis-values.yaml
     helm ls
     kubectl get servicemonitor
+    
+    kubectl apply -f redis-deploy.yaml
+    curl -v telnet://localhost:6379
 
-    https://samber.github.io/awesome-prometheus-alerts/
+    Ref: https://samber.github.io/awesome-prometheus-alerts/
+    kubectl apply -f redis-rules.yaml
+
+    Config Grafana dashboard:
+    https://grafana.com/grafana/dashboards/763-redis-dashboard-for-prometheus-redis-exporter-1-x/
+    import in grafana.
+
+  ### Deploy Redis Exporter  
+
+
     
