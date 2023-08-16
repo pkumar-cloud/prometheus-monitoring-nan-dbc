@@ -111,7 +111,27 @@ OR
     https://grafana.com/grafana/dashboards/763-redis-dashboard-for-prometheus-redis-exporter-1-x/
     import in grafana.
 
-  ### Deploy Redis Exporter  
+  ### Using client library - to monitor own app
+    cd nodejs-app-monitoring-nan-dbc
+    cd app
+    npm install
+    node server.js
+    
+    # "prom-client": "13.1.0" #Prometheus client lib
+    http://localhost:3000/metrics
+
+    #Build docker image 
+    docker build -t pndrns/demo-app:nodeapp .
+    docker push pndrns/demo-app:nodeapp
+
+    kubectl apply -f k8s-config.yaml
+    kubectl port-forward svc/nodeapp 3000:3000
+    http://localhost:3000/metrics
+
+    Explore metrics in Prometheus and Create Grafana Dashboard:
+    rate(http_request_operations_total[2m]) #Total http request per second over the period of 2 mins
+    rate(http_request_duration_seconds_sum[2m]) #Total duration of request per second
+
 
 
     
