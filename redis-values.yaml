@@ -3,5 +3,5 @@ serviceMonitor:
   labels:
     release: monitoring #name of Promethus release deployed via helm
 
-#redisAddress: redis://redis-cart:6379 #redis servcie name or endpoint
-redisAddress: localhost:6379 #redis servcie name or endpoint
+redisAddress: redis://redis-cart:6379 #redis servcie name or endpoint
+#redisAddress: localhost:6379 #redis servcie name or endpoint

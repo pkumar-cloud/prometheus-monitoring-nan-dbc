@@ -1,7 +1,8 @@
 ### Deploy MS in EKS
     eksctl create cluster
+    #Does not run well on minikube, use K8S cluster
     kubectl apply -f ./config-microservices.yaml
-
+    #Not needed when using above microservices
     kubectl apply -f devops-monitoring.yml
 
 ### OPTIONAL for Linode
@@ -92,7 +93,7 @@ OR
     helm repo add stable https://charts.helm.sh/stable
     helm repo update
 
-    Create redis-values.yaml to overide default values from helm chart.
+    Create redis-values.yaml (redis-values-local.yaml when installing own redis) to overide default values from helm chart.
     - Enable serviceMonitor.
     - redisAddress
     
@@ -100,6 +101,7 @@ OR
     helm ls
     kubectl get servicemonitor
     
+    #For local setup, not needed if using microservices
     kubectl apply -f redis-deploy.yaml
     curl -v telnet://localhost:6379
 
