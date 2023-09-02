@@ -1,7 +1,6 @@
 ### Deploy MS in EKS
     eksctl create cluster
-    kubectl create namespace online-shop
-    kubectl apply -f ./config-microservices.yaml -n online-shop
+    kubectl apply -f ./config-microservices.yaml
 
     kubectl apply -f devops-monitoring.yml
 
